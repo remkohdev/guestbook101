@@ -1,6 +1,4 @@
-# Lab1 - Create the CI/CD Pipeline
-
-Part 1
+# Lab1 - Deploy Guestbook API App to Kubernetes
 
 1.  Build using Bash scripts,
 
