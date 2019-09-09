@@ -113,8 +113,20 @@
 
 3.  Deploy using a Bash script,
 
-	* Login to your Kubernetes cluster,
-	* Configure the current-context of kubectl to match your Kubernetes cluster,
+	* Login to your Kubernetes cluster, e.g. for IBM Cloud,
+
+		```console
+		$ ibmcloud login -a cloud.ibm.com -r us-south -g Default
+		$ ibmcloud target --cf
+		```
+
+	* Configure the current-context of kubectl to match your Kubernetes cluster, e.g. for IBM Cloud,
+
+		```console
+		$ ibmcloud ks cluster-config --cluster <cluster-id>
+		$ export KUBECONFIG=/Users/user1/.bluemix/plugins/container-service/clusters/<cluster-id>/kube-config-dal10-<username>-<cluster>.yml
+		```
+
 	* Create a `k8s-deploy.sh` bash script and copy paste the following code,
 
 		```bash
@@ -159,5 +171,7 @@
 		kubectl create -f ./helm/templates/hpa.yaml
 		```
 
-	* Your Guestbook API service should now be available via the Public IP of the Cluster and the NodePort of your Guestbook API service,
+	* Your Guestbook API service should now be available via the Public IP of the Cluster and the NodePort of your Guestbook API service, e.g. http://169.63.218.104:32145/
+
+		![Guestbook API on Kubernetes](../images/guestbook-api-on-kubernetes.png)
 
