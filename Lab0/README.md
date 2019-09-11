@@ -48,246 +48,181 @@
 		$ docker run -d --restart always --name guestbook-api -p 3001:3001 guestbook-api
 		```
 
-5. Generate the Guestbook data models using the [Model generator](https://loopback.io/doc/en/lb4/Model-generator.html),
+5. Create the OpenAPI spec using version 2,
 
-	* Add Message model:
-    	* id: number, id property, required
-    	* text: string, required
-    	* datecreated: date, optional
+	* an empty OpenAPI spec would look as follows,
 
-		```console
-		$ lb4 model
-		? Model class name: Message
-		? Please select the model base class Entity (A persisted model with an ID)
-		? Allow additional (free-form) properties? No
-		Model Message will be created in src/models/message.model.ts
-
-		Let's add a property to Message
-		Enter an empty property name when done
-
-		? Enter the property name: id
-		? Property type: number
-		? Is id the ID property? Yes
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Message
-		Enter an empty property name when done
-
-		? Enter the property name: text
-		? Property type: string
-		? Is it required?: Yes
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Message
-		Enter an empty property name when done
-
-		? Enter the property name: datecreated
-		? Property type: date
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Message
-		Enter an empty property name when done
-
-		? Enter the property name: 
-		create src/models/message.model.ts
-		update src/models/index.ts
-
-		Model Message was created in src/models/
-		```
-	
-	* Add the Person model:
-    	* id: number, id property, optional
-    	* firstname: string, optional
-    	* lastname: string, optional
-    	* username: string, optional
-
-		```console
-		$ lb4 model
-		? Model class name: Person
-		? Please select the model base class Entity (A persisted model with an ID)
-		? Allow additional (free-form) properties? No
-		Model Person will be created in src/models/person.model.ts
-
-		Let's add a property to Person
-		Enter an empty property name when done
-
-		? Enter the property name: id
-		? Property type: number
-		? Is id the ID property? Yes
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Person
-		Enter an empty property name when done
-
-		? Enter the property name: firstname
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Person
-		Enter an empty property name when done
-
-		? Enter the property name: lastname
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Person
-		Enter an empty property name when done
-
-		? Enter the property name: username
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Person
-		Enter an empty property name when done
-
-		? Enter the property name: 
-		create src/models/person.model.ts
-		update src/models/index.ts
-
-		Model Person was created in src/models/
-		```
-  
-	* Add the Contact model:
-        * id: number, id property, required
-    	* email: string, optional
-    	* phone: string, optional
-
-		```console
-		$ lb4 model
-		? Model class name: Contact
-		? Please select the model base class Entity (A persisted model with an ID)
-		? Allow additional (free-form) properties? No
-		Model Contact will be created in src/models/contact.model.ts
-
-		Let's add a property to Contact
-		Enter an empty property name when done
-
-		? Enter the property name: id
-		? Property type: number
-		? Is id the ID property? Yes
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Contact
-		Enter an empty property name when done
-
-		? Enter the property name: email
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Contact
-		Enter an empty property name when done
-
-		? Enter the property name: phone
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Contact
-		Enter an empty property name when done
-
-		? Enter the property name: 
-		create src/models/contact.model.ts
-		update src/models/index.ts
-
-		Model Contact was created in src/models/
+		```yaml
+		swagger: "2.0"
+		info:
+		  title: Guestbook API
+		  description: Guestbook API provides an API for the Guestbook application
+		  version: 1.0.0
+		host: api.example.com
+		basePath: /v1
+		schemes:
+		  - http
+		paths:
+		definitions:
 		```
 
-	* Add the Address model:
-        * id: number, id property, required
-    	* addressline1: string, optional
-    	* adressline2: string, optional
-    	* city: string, optional
-    	* state: string, optional
-    	* zipcode: string, optional
-    	* country: string, optional
+	* Next the data model can be represented in the `definitions` section,
 
-		```console
-		$ lb4 model
-		? Model class name: Address
-		? Please select the model base class Entity (A persisted model with an ID)
-		? Allow additional (free-form) properties? No
-		Model Address will be created in src/models/address.model.ts
-
-		Let's add a property to Address
-		Enter an empty property name when done
-
-		? Enter the property name: id
-		? Property type: number
-		? Is id the ID property? Yes
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Address
-		Enter an empty property name when done
-
-		? Enter the property name: addressline1
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Address
-		Enter an empty property name when done
-
-		? Enter the property name: addressline2
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Address
-		Enter an empty property name when done
-
-		? Enter the property name: city
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Address
-		Enter an empty property name when done
-
-		? Enter the property name: state
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Address
-		Enter an empty property name when done
-
-		? Enter the property name: zipcode
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Address
-		Enter an empty property name when done
-
-		? Enter the property name: country
-		? Property type: string
-		? Is it required?: No
-		? Default value [leave blank for none]: 
-
-		Let's add another property to Address
-		Enter an empty property name when done
-
-		? Enter the property name: 
-		create src/models/address.model.ts
-		update src/models/index.ts
-
-		Model Address was created in src/models/
+		```yaml
+		definitions:
+			Message:
+				title: Message
+				properties:
+				id:
+					type: number
+				text:
+					type: string
+				datecreated:
+					type: string
+					format: date-time
+				personId:
+					type: number
+				required:
+				- text
+			Person:
+				title: Person
+				properties:
+				id:
+					type: number
+				firstname:
+					type: string
+				lastname:
+					type: string
+				username:
+					type: string
+			Contact:
+				title: Contact
+				properties:
+				id:
+					type: number
+				email:
+					type: string
+				phone:
+					type: string
+				personId:
+					type: number
+			Address:
+				title: Address
+				properties:
+				id:
+					type: number
+				addressline1:
+					type: string
+				addressline2:
+					type: string
+				city:
+					type: string
+				state:
+					type: string
+				zipcode:
+					type: string
+				country:
+					type: string
+				contactId:
+					type: number
+			Ping:
+				title: Ping
+				properties:
+				greeting:
+					type: string
+				date:
+					type: string
+				url:
+					type: string
+				headers:
+					type: object
+					properties:
+					Content-Type:
+						type: string
 		```
-	
-	* You now have created data models for:
-    	* Message
-    	* Person
-    	* Contact
-    	* Address
+	* Add the following endpoints,
+    	* Health:
+        	* GET /ping
+    	* Messages:
+        	* GET /messages
+        	* POST /messages
+
+	* Add `GET /ping`
+
+		```yaml
+		  /ping:
+			get:
+			summary: Does a ping check to see if the server is up
+			responses:
+				'200':
+				description: Ping Response
+				schema:
+					$ref: '#/definitions/Ping'
+			operationId: PingController.ping
+	  	```
+
+	* Add Messages endpoints. For simplicity, add 2 endpoints to find and create messages in the Guestbook, a `GET /messages` and a `POST /messages`,
+
+		```yaml
+		paths:
+		/messages:
+			get:
+			tags:
+				- Messages
+			parameters:
+				- name: filter
+				in: query
+				type: array
+				items:
+					type: string
+				- name: offset
+				in: query
+				type: integer
+				minimum: 0
+				- name: limit
+				in: query
+				type: integer
+				minimum: 0
+			responses:
+				'200':
+				description: Array of Message model instances
+				schema:
+					type: array
+					items:
+					$ref: '#/definitions/Message'
+			operationId: MessagesController.find
+			post:
+			tags:
+				- Messages
+			parameters:
+				- name: message
+				description: new Message
+				in: body
+				schema:
+					type: object
+					$ref: '#/definitions/Message'
+			responses:
+				'201':
+				description: Message model instance
+				schema:
+					$ref: '#/definitions/Message'
+			operationId: MessagesController.create
+		```
+
+	* Add API Connect context variables,
+
+		* You can add context variables for the IBM DataPower Gateway in API Connect by using the [IBM extensions to the OpenAPI (Swagger 2.0) specification](https://www.ibm.com/support/knowledgecenter/en/SSFS6T/com.ibm.apic.toolkit.doc/rapim_cli_swagger_extensions.html) with `x-ibm-configuration`. To define properties in an API use the [`properties` extension](https://www.ibm.com/support/knowledgecenter/SSFS6T/com.ibm.apic.toolkit.doc/rapim_cli_properties.html),
+
+			```yaml
+			x-ibm-configuration:
+				properties:
+					guestbook_svc_url:
+						value: 'http://69.63.218.104:32145'
+						description: Location of the Guestbook API service
+						encoded: false
+			```
+
+		* To use the `guestbook-cvs-url` in the `Invoke` action of an assembly, you use the templating syntax `$()`. To inject the `guestbook_svc_url` as the URL property of the `Invoke` action in the assembly, use `http://$(guestbook_svc_url)/$(request.uri)`. 
 
 6. Create a DataSource,
    
