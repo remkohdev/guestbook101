@@ -1,8 +1,8 @@
-# Lab1 - Deploy Guestbook API App to Kubernetes
+# Lab1 - Deploy Guestbook API App to Kubernetes using Bash
 
 1.  Build using Bash scripts,
 
-	* Create a bash script `docker-build-tag-push.sh` and paste the code below. This code will build, tag and push an image to the Docker Hub public repository,
+	* Create a bash script `docker-build-tag-push.sh` and paste the code below. Replace `<username>` by your Docker Hub username. This code will build, tag and push an image to the Docker Hub public repository,
 
 		```bash
 		echo '=====>build guestbook-api<====='
@@ -15,7 +15,7 @@
 		docker push <username>/guestbook-api:0.1.0
 		```
 
-	* Login to Docker Hub and run the script `docker-build-tag-push.sh`,
+	* Login to Docker Hub with your Docker Hub username and run the script `docker-build-tag-push.sh`,
 	
 		```console
 		$ docker login -u <username>
@@ -50,7 +50,7 @@
 				ports:
 				- name: main
 				  protocol: TCP
-				  containerPort: 3001
+				  containerPort: 3000
 				envFrom:
 				- configMapRef:
 					name: guestbook-api-configmap
@@ -59,6 +59,8 @@
 				    memory: "120M"
 					cpu: "500m" 
 		```
+
+	* Make sure your change the line `image: <username>/guestbook-api:0.1.0` in the `deployment.yaml` above by the Docker Hub username,
 
 	* Create a `helm/templates/svc.yaml`,
 
@@ -75,8 +77,9 @@
 		  ports:
 		  - name: main
 			protocol: TCP
-			port: 3001
-			targetPort: 3001
+			port: 3000
+			targetPort: 3000
+			nodePort: 32300
 		  selector: 
 			app: guestbook-api
 		```
@@ -89,6 +92,8 @@
 		metadata:
 		  name: guestbook-api-configmap
 		  namespace: guestbook-ns
+		  labels:
+    		app: guestbook-api
 		data:
 		  NODE_ENV: integration
 		```
@@ -101,6 +106,8 @@
 		metadata:
 		  name: guestbook-api-hpa
 		  namespace: guestbook-ns
+		  labels: 
+    		app: guestbook-api
 		spec:
 		  maxReplicas: 10
 		  minReplicas: 2
@@ -113,10 +120,20 @@
 
 3.  Deploy using a Bash script,
 
-	* Login to your Kubernetes cluster, e.g. for IBM Cloud,
+	* Login to your Kubernetes cluster, e.g. for IBM Cloud see your cluster dashboard's Access tab, which should show you something close to the following instructions,
 
 		```console
 		$ ibmcloud login -a cloud.ibm.com -r us-south -g Default
+		Email> user1@email.com
+
+		Password> 
+		Authenticating...
+		OK
+
+		Select an account:
+		1. user1@email.com
+		... and more
+
 		$ ibmcloud target --cf
 		```
 
@@ -124,10 +141,11 @@
 
 		```console
 		$ ibmcloud ks cluster-config --cluster <cluster-id>
+
 		$ export KUBECONFIG=/Users/user1/.bluemix/plugins/container-service/clusters/<cluster-id>/kube-config-dal10-<username>-<cluster>.yml
 		```
 
-	* Create a `k8s-deploy.sh` bash script and copy paste the following code,
+	* Create a `kube-deploy.sh` bash script and copy paste the following code,
 
 		```bash
 		echo '=====>delete namespace guestbook-ns'
@@ -171,7 +189,15 @@
 		kubectl create -f ./helm/templates/hpa.yaml
 		```
 
-	* Your Guestbook API service should now be available via the Public IP of the Cluster and the NodePort of your Guestbook API service, e.g. http://169.63.218.104:32145/
+	* Run the deployment script,
 
-		![Guestbook API on Kubernetes](../images/guestbook-api-on-kubernetes.png)
+		```bash
+		$ sh kube-deploy.sh
+		```
 
+	* Your Guestbook API service should now be available via the Public IP of the Cluster and the NodePort of your Guestbook API service, e.g. http://<Public IP>:32300 
+
+		```console
+		$ curl -X GET http://169.63.218.104:32300/
+		{"started":"2019-09-13T03:39:17.923Z","uptime":95.718}
+		```

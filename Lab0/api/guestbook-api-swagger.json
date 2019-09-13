@@ -1,0 +1,184 @@
+{
+	"swagger": "2.0",
+	"info": {
+	  "title": "Guestbook API",
+	  "description": "Guestbook API provides an API for the Guestbook application",
+	  "version": "1.0.0"
+	},
+	"host": "169.63.218.104:32300",
+	"basePath": "/",
+	"schemes": [
+	  "https"
+	],
+	"paths": {
+	  "/messages": {
+		"get": {
+		  "tags": [
+			"Message"
+		  ],
+		  "produces": [
+		    "application/json"
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "Array of Message model instances",
+			  "schema": {
+				"type": "array",
+				"items": {
+				  "$ref": "#/definitions/Message"
+				}
+			  }
+			}
+		  },
+		  "operationId": "getMessages"
+		},
+		"post": {
+		  "tags": [
+			"Message"
+		  ],
+		  "consumes": [
+		    "application/json"
+		  ],
+		  "produces": [
+		    "application/json"
+		  ],
+		  "parameters": [
+			{
+			  "name": "message",
+			  "description": "new Message",
+			  "in": "body",
+			  "schema": {
+				"type": "object",
+				"$ref": "#/definitions/Message"
+			  }
+			}
+		  ],
+		  "responses": {
+			"201": {
+			  "description": "Message model instance",
+			  "schema": {
+				"$ref": "#/definitions/Message"
+			  }
+			}
+		  },
+		  "operationId": "addMessage"
+		}
+	  },
+	  "/ping": {
+		"get": {
+			"tags": [
+				"Ping"
+			],
+			"summary": "Does a ping check to see if the server is up",
+			"responses": {
+				"200": {
+				"description": "Ping Response",
+				"schema": {
+					"$ref": "#/definitions/Ping"
+				}
+				}
+			}
+		}
+	  }
+	},
+	"definitions": {
+	  "Message": {
+		"title": "Message",
+		"properties": {
+		  "id": {
+			"type": "number"
+		  },
+		  "text": {
+			"type": "string"
+		  },
+		  "datecreated": {
+			"type": "string",
+			"format": "date-time"
+		  }
+		},
+		"required": [
+		  "text"
+		]
+	  },
+	  "Person": {
+		"title": "Person",
+		"properties": {
+		  "id": {
+			"type": "number"
+		  },
+		  "firstname": {
+			"type": "string"
+		  },
+		  "lastname": {
+			"type": "string"
+		  },
+		  "username": {
+			"type": "string"
+		  }
+		}
+	  },
+	  "Contact": {
+		"title": "Contact",
+		"properties": {
+		  "id": {
+			"type": "number"
+		  },
+		  "email": {
+			"type": "string"
+		  },
+		  "phone": {
+			"type": "string"
+		  }
+		}
+	  },
+	  "Address": {
+		"title": "Address",
+		"properties": {
+		  "id": {
+			"type": "number"
+		  },
+		  "addressline1": {
+			"type": "string"
+		  },
+		  "addressline2": {
+			"type": "string"
+		  },
+		  "city": {
+			"type": "string"
+		  },
+		  "state": {
+			"type": "string"
+		  },
+		  "zipcode": {
+			"type": "string"
+		  },
+		  "country": {
+			"type": "string"
+		  }
+		}
+	  },
+	  "Ping": {
+		"title": "Ping",
+		"properties": {
+		  "greeting": {
+			"type": "string"
+		  },
+		  "date": {
+			"type": "string"
+		  },
+		  "url": {
+			"type": "string"
+		  }
+		}
+	  }
+	},
+	"x-ibm-configuration": {
+	  "properties": {
+		"guestbook_svc_url": {
+		  "value": "http://69.63.218.104:32300",
+		  "description": "Location of the Guestbook API service",
+		  "encoded": false
+		}
+	  }
+	}
+  }
