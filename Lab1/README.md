@@ -2,7 +2,7 @@
 
 1.  Build using Bash scripts,
 
-	* Create a bash script `docker-build-tag-push.sh` and paste the code below. Replace `<username>` by your Docker Hub username. This code will build, tag and push an image to the Docker Hub public repository,
+	* IN the project root directory, create a bash script `docker-build-tag-push.sh` and paste the code below. Replace `<username>` by your Docker Hub username. This code will build, tag and push an image to the Docker Hub public repository,
 
 		```bash
 		echo '=====>build guestbook-api<====='
@@ -23,6 +23,12 @@
 		```
 
 2.  Add Kubernetes object specs, 
+
+	* Create a new directory `helm/templates`,
+
+		```console
+		$ mkdir -p helm/templates
+		```
 
 	* Create a `helm/templates/deployment.yaml`,
 
@@ -79,7 +85,6 @@
 			protocol: TCP
 			port: 3000
 			targetPort: 3000
-			nodePort: 32300
 		  selector: 
 			app: guestbook-api
 		```
@@ -145,7 +150,7 @@
 		$ export KUBECONFIG=/Users/user1/.bluemix/plugins/container-service/clusters/<cluster-id>/kube-config-dal10-<username>-<cluster>.yml
 		```
 
-	* Create a `kube-deploy.sh` bash script and copy paste the following code,
+	* In the project root directory, create a `kube-deploy.sh` bash script and copy paste the following code,
 
 		```bash
 		echo '=====>delete namespace guestbook-ns'
@@ -195,9 +200,15 @@
 		$ sh kube-deploy.sh
 		```
 
-	* Your Guestbook API service should now be available via the Public IP of the Cluster and the NodePort of your Guestbook API service, e.g. http://<Public IP>:32300 
+	* Your Guestbook API service should now be available via the Public IP of the Cluster and the NodePort of your Guestbook API service, e.g. http://<Public IP>:32300, 
 
 		```console
 		$ curl -X GET http://169.63.218.104:32300/
 		{"started":"2019-09-13T03:39:17.923Z","uptime":95.718}
+		```
+	* Or via the Ingress subdomain and service port, e.g. http://<cluster-name>.<region>.containers.appdomain.cloud:<service-port>,
+
+		```console
+		$ curl -X GET http://remkohdev-cluster-3w.us-south.containers.appdomain.cloud:31356/
+		{"started":"2019-09-19T02:45:32.243Z","uptime":556.014}
 		```

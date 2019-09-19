@@ -7,7 +7,7 @@
 
 2. Create the Guestbook API template,
 
-	* Create the Loopback 3 project for the Guestbook API,
+	* Create the Loopback 3 project for the Guestbook API as an `api-server`,
 
 		```console
 		$ lb guestbook-api
@@ -99,6 +99,10 @@
 		```
 
 	* Open the application at http://localhost:3000/explorer
+
+		```console
+		$ open http://localhost:3000/explorer
+		```
 
 3. Create the OpenAPI spec for the Guestbook API,
 
@@ -315,10 +319,10 @@
 		}		
 		```
 
-	* Note that in the above OpenAPI spec I have used the address `http://69.63.218.104:32145`, which is the public IP of the worker node and the nodePort of the service exposing the Guestbook API deployment. However, we have not yet deployed our Guestbook API app.
+	* Note that in the above OpenAPI spec I have used the address `http://69.63.218.104:32145`, which is the public IP of the worker node and the nodePort of the service exposing the Guestbook API deployment. However, we have not yet deployed our Guestbook API app, we will have to change the values of the host and service url for the API Connect proxy.
 
 
-4. Generate the Loopback application artifacts from the OpenAPI spec version 2.0, make sure to uncheck the Ping object, as the operation to implement the Ping
+4. Generate the Loopback application artifacts from the OpenAPI spec version 2.0,
 
 	```console
 	$ lb swagger
@@ -351,7 +355,7 @@
 	Models are successfully generated from swagger spec.
 	```
 
-5. Add relations to models,
+5. Add relations to models running the `lb relation` command to create the following 3 model relations,
 
 	```console
 	$ lb relation
@@ -419,7 +423,7 @@
 				'greeting': 'The server is UP and running!',
 			};
 			callback(null, msg);
-		}
+		};
 		```
 
 9. Disable RemoteMethods and User Model
@@ -493,13 +497,18 @@
 
 	* Visit the /explorer to see the created endpoints,
 
+		```console
+		$ open 
+		```
+
 		![Guestbook API Swagger](../images/guestbook-api-swagger-explorer.png)
 
 11. Test
    
-   ```console
-   $ curl -X GET --header 'Accept: application/json' 'http://localhost:3000/api/Pings/getPing'
-   ```
+    ```console
+    $ curl -X GET --header 'Accept: application/json' 'http://localhost:3000/api/Pings/getPing'
+    {"greeting":"The server is UP and running!"}
+    ```
  
 
 

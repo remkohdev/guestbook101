@@ -7,7 +7,8 @@ This Lab uses technologies learned in loopback101, docker101, kube101, helm101, 
 
 * Lab0 - Create the Guestbook API App using Loopback 3 and OpenAPI version 2.0, see [Lab0](Lab0/README.md)
 * Lab1 - Deploy Guestbook API App to Kubernetes using Bash, see [Lab1](Lab1/README.md)
-* Lab2 - Secure Guestbook API with API Connect and AppID
+* Lab2 - Secure the Guestbook API with API Connect, see [Lab2](Lab2/README.md)
+* 
 
 
 ## TODO 
@@ -15,4 +16,5 @@ This Lab uses technologies learned in loopback101, docker101, kube101, helm101, 
 * Lab3 - Create a CI/CD Pipeline to Kubernetes
 * Lab4 - Use Helm for Deployment
 * Lab5 - Using Istio
+* Add AppID
 
