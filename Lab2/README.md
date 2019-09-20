@@ -95,48 +95,17 @@
 	* In the `Operation` section, for `Operation` select the `GET /getPing` operation,
 	* Click the `Invoke` button
 
-```
-# Source: web-terminal/templates/web-terminal-ingress.yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: terminal-ingress
-  annotations:
-    ingress.bluemix.net/rewrite-path: "serviceName=terminal-service-1 rewrite=/;serviceName=terminal-service-2 rewrite=/;serviceName=terminal-service-3 rewrite=/;"
-    ingress.bluemix.net/proxy-connect-timeout: "serviceName=terminal-service-1 timeout=75s;serviceName=terminal-service-2 timeout=75s;serviceName=terminal-service-3 timeout=75s;"
-    ingress.bluemix.net/proxy-read-timeout: "serviceName=terminal-service-1 timeout=3600s;serviceName=terminal-service-2 timeout=3600s;serviceName=terminal-service-3 timeout=3600s;"
-    kubernetes.io/ingress.class: nginx
-spec:
-  tls:
-  - hosts:
-    - testing-cluster.us-east.containers.appdomain.cloud
-    secretName: testing-cluster
-  rules:
-  - host: testing-cluster.us-east.containers.appdomain.cloud
-    http:
-      paths:
-      - path: "/term1"
-        backend:
-          serviceName: "terminal-service-1"
-          servicePort: 80
-      - path: "/term2"
-        backend:
-          serviceName: "terminal-service-2"
-          servicePort: 80
-      - path: "/term3"
-        backend:
-          serviceName: "terminal-service-3"
-          servicePort: 80
-```
+5. Add Draft to Product
 
-1. Create a new Product
-
-	* In the API Designer, in the Draft API, in the top right, click the menu drop down > click the `Generate a default product` option,
-	* Change the title to `Guestbook API`,
-	* click the `Create product`,
-	* Click `All APIs` and go to `Products`,
-	* Click the `Guestbook API 1.0.0` to edit the product,
-	* 
-
-
-http://169.63.218.104:30569$(request.path)
+	* During testing using the `Invoke` option, you already created a product,
+	* If you do not have a product already, you can generate a product from the top right dropdown, select `Generate a default product`,
+    	* Change the title to `Guestbook API`,
+    	* Click the `Create product`,
+  	* Otherwise, select the `Add to existing products`,
+    	* Select the appropriate product version,
+    	* Click `Add`,
+  	* Click `All APIs` and go to `Products`,
+  	* Click the `Guestbook API 1.0.0` to edit the product settings,
+	* For now, keep the default product settings,
+	* From the `Home` dropdown menu, select `Dashboard`,
+	* From the product instance dropdown menu to the right of the product, you can manage the lifecycle of the product,
