@@ -435,6 +435,7 @@
 
 		  Message.disableRemoteMethod('patchOrCreate', true);
 		  Message.disableRemoteMethod('find', true);
+		  Message.disableRemoteMethod('findById', true);
 		  Message.disableRemoteMethod('replaceOrCreate', true);
 		  Message.disableRemoteMethod('create', true);
 		  Message.disableRemoteMethod('updateAttributes', false);

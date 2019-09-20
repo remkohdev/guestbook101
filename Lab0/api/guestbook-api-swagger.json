@@ -5,7 +5,6 @@
 	  "description": "Guestbook API provides an API for the Guestbook application",
 	  "version": "1.0.0"
 	},
-	"host": "169.63.218.104:32300",
 	"basePath": "/",
 	"schemes": [
 	  "https"
@@ -175,7 +174,7 @@
 	"x-ibm-configuration": {
 	  "properties": {
 		"guestbook_svc_url": {
-		  "value": "http://69.63.218.104:32300",
+		  "value": "http://remkohdev-cluster-3w.us-south.containers.appdomain.cloud:31541",
 		  "description": "Location of the Guestbook API service",
 		  "encoded": false
 		}
